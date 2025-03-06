@@ -1,0 +1,10 @@
+Bölüm 3: Character Development
+
+15. Setup testing ground and Character Import
+16. Setup New Input System
+17. Setup movement
+18. Setup gravity
+19. Setup aim
+20. Rig Setup and Animations
+21. Setup walk animation
+22. Setup run animation
