@@ -8,3 +8,19 @@ Bölüm 3: Character Development
 20. Rig Setup and Animations
 21. Setup walk animation
 22. Setup run animation
+23. Setup fire animation
+
+
+Bölüm 4: Gun Visuals and Animations
+
+24. Create weapon controller
+25. Setup weapon 3D model's
+26. Animation rigging - Setup
+27. Rig aim constraints
+28. Left hand IK - attach left hand to the gun
+29. Left hand IK - diffrent weapons
+30. Weapon animation layers
+31. Introducing layer sync
+32. Reload Animations
+33. Weapon Grab Animations
+34. Clean up & Project

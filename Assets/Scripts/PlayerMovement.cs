@@ -2,6 +2,7 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
+    private Player player;
 
     private PlayerControls controls;
     private CharacterController characterController;
@@ -23,17 +24,16 @@ public class PlayerMovement : MonoBehaviour
     private Vector2 moveInput;
     private Vector2 aimInput;
 
-    private void Awake()
-    {
-        AssignInputEvent();
-    }
-
     private void Start()
     {
+        player = GetComponent<Player>();
+
         characterController = GetComponent<CharacterController>();
         animator = GetComponentInChildren<Animator>();
 
         speed = walkSpeed;
+
+        AssignInputEvent();
     }
 
     private void Update()
@@ -41,12 +41,6 @@ public class PlayerMovement : MonoBehaviour
         ApplyMovement();
         AimTowardsMouse();
         AnimatorControllers();
-    }
-
-    private void Shoot()
-    {
-        animator.SetTrigger("Fire");
-        Debug.Log("Shoot");
     }
 
     private void AnimatorControllers()
@@ -73,7 +67,7 @@ public class PlayerMovement : MonoBehaviour
 
             transform.forward = lookingDirection;
 
-            aim.position = new Vector3 (hitInfo.point.x, transform.position.y, hitInfo.point.z);
+            aim.position = new Vector3 (hitInfo.point.x, transform.position.y + 1, hitInfo.point.z);
         }
     }
 
@@ -101,13 +95,11 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
-    #region New Input Sytem
+
 
     private void AssignInputEvent()
     {
-        controls = new PlayerControls();
-
-        controls.Character.Fire.performed += context => Shoot();
+        controls = player.controls;
 
         controls.Character.Movement.performed += context => moveInput = context.ReadValue<Vector2>();
         controls.Character.Movement.canceled += context => moveInput = Vector2.zero;
@@ -128,17 +120,6 @@ public class PlayerMovement : MonoBehaviour
         };
     }
 
-    private void OnEnable()
-    {
-        controls.Enable();
-    }
-
-    private void OnDisable()
-    {
-        controls.Disable();
-    }
-
-    #endregion
 
 
 }
