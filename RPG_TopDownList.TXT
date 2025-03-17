@@ -24,3 +24,19 @@ Bölüm 4: Gun Visuals and Animations
 32. Reload Animations
 33. Weapon Grab Animations
 34. Clean up & Project
+
+Bölüm 5: Camera and Aim
+
+35. Setup Camera
+36. Camera Settings
+37. Player Aim and Decomposition of Player Movement
+38. Smooth character rotation - Lerp & SLerp
+39. Camera's Lookahead
+40. Decomposition of Aim and Camera
+41. Create a bullet
+42. Setup bullet's direction
+43. Setup Precise Aim
+44. Setup Target Lock
+45. Visualise Aim with Laser
+46. Clean up & Project
+
