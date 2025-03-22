@@ -40,3 +40,27 @@ Bölüm 5: Camera and Aim
 45. Visualise Aim with Laser
 46. Clean up & Project
 
+Bölüm 6: Colliders and Rigidbodies
+
+
+47. Update project to LTS
+48. Import 3D models
+49. How to setup 3D colliders
+50. Important about Pivot point
+51. Rigidbody
+52. Collision detection type
+53. Flexible mass of a bullet
+54. Shiny bullet & URP setup
+
+
+
+10 dak
+Oynat
+55. Impact Visual Effect of a Bullet
+13 dak
+Oynat
+56. Training ground upgrade
+22 dak
+Oynat
+57. Clean up & Project
+
