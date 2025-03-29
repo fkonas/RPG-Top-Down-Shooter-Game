@@ -40,8 +40,9 @@ Bölüm 5: Camera and Aim
 45. Visualise Aim with Laser
 46. Clean up & Project
 
-Bölüm 6: Colliders and Rigidbodies
 
+
+Bölüm 6: Colliders and Rigidbodies
 
 47. Update project to LTS
 48. Import 3D models
@@ -51,16 +52,52 @@ Bölüm 6: Colliders and Rigidbodies
 52. Collision detection type
 53. Flexible mass of a bullet
 54. Shiny bullet & URP setup
-
-
-
-10 dak
-Oynat
 55. Impact Visual Effect of a Bullet
-13 dak
-Oynat
 56. Training ground upgrade
-22 dak
-Oynat
 57. Clean up & Project
 
+
+
+Bölüm 7: Weapon System
+
+58. Weapon class
+59. Weapon type
+60. Weapon slots
+61. Weapon pickup
+62. Weapon's ammo
+63. Weapon's reload
+64. Weapon's model
+65. Equip weapon
+66. Backup weapon model
+67. Reload speed & Equipment speed
+
+
+
+68. Object pool - Bullet pool
+20 dak
+Oynat
+69. Weapon's fire rate
+9 dak
+Oynat
+70. Weapon ready check
+15 dak
+Oynat
+71. Shoot type : Single and Auto
+7 dak
+Oynat
+72. Bullet's spread
+15 dak
+Oynat
+73. Multi-shot and burst shot
+25 dak
+Oynat
+74. Gun distance
+23 dak
+Oynat
+75. Camera distance
+13 dak
+Oynat
+76. 2+ weapon slots
+22 dak
+Oynat
+77. Clean up & Project
