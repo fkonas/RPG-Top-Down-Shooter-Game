@@ -6,8 +6,9 @@ public class PlayerWeaponController : MonoBehaviour
 {
     private Player player;
     private const float REFERENCE_BULLET_SPEED = 20;
-    //This is the default speed from which our mass formula is derived.
+    //This is the default speed from whcih our mass formula is derived.
 
+    [SerializeField] private WeaponData defaultWeaponData;
     [SerializeField] private Weapon currentWeapon;
     private bool weaponReady;
     private bool isShooting;
@@ -15,6 +16,7 @@ public class PlayerWeaponController : MonoBehaviour
     [Header("Bullet details")]
     [SerializeField] private GameObject bulletPrefab;
     [SerializeField] private float bulletSpeed;
+
 
     [SerializeField] private Transform weaponHolder;
 
@@ -38,10 +40,13 @@ public class PlayerWeaponController : MonoBehaviour
             Shoot();
     }
 
-    #region Slots Management - Pickup\Equip\Drop\Ready Weapon
+    #region Slots managment - Pickup\Equip\Drop\Ready Weapon
 
-    private void EquipStartingWeapon() => EquipWeapon(0);
-
+    private void EquipStartingWeapon()
+    {
+        weaponSlots[0] = new Weapon(defaultWeaponData);
+        EquipWeapon(0);
+    }
     private void EquipWeapon(int i)
     {
         if (i >= weaponSlots.Count)
@@ -54,46 +59,46 @@ public class PlayerWeaponController : MonoBehaviour
 
         CameraManager.instance.ChangeCameraDistance(currentWeapon.cameraDistance);
     }
-
-    public void PickupWeapon(Weapon newWeapon)
+    public void PickupWeapon(WeaponData newWeaponData)
     {
         if (weaponSlots.Count >= maxSlots)
         {
-            Debug.Log("No Slots Avalible");
+            Debug.Log("No slots avalible");
             return;
         }
+
+        Weapon newWeapon = new Weapon(newWeaponData);
+
         weaponSlots.Add(newWeapon);
         player.weaponVisuals.SwitchOnBackupWeaponModel();
     }
-
     private void DropWeapon()
     {
         if (HasOnlyOneWeapon())
             return;
 
-        weaponSlots.Remove(currentWeapon);
 
+        weaponSlots.Remove(currentWeapon);
         EquipWeapon(0);
     }
 
-
     public void SetWeaponReady(bool ready) => weaponReady = ready;
-
     public bool WeaponReady() => weaponReady;
 
     #endregion
+
 
     private IEnumerator BurstFire()
     {
         SetWeaponReady(false);
 
-        for (int i = 1; i <= currentWeapon.bulletPerShot; i++)
+        for (int i = 1; i <= currentWeapon.bulletsPerShot; i++)
         {
             FireSingleBullet();
 
             yield return new WaitForSeconds(currentWeapon.burstFireDelay);
 
-            if (i >= currentWeapon.bulletPerShot)
+            if (i >= currentWeapon.bulletsPerShot)
                 SetWeaponReady(true);
         }
     }
@@ -117,15 +122,16 @@ public class PlayerWeaponController : MonoBehaviour
             return;
         }
 
-        FireSingleBullet();
 
+        FireSingleBullet();
     }
 
     private void FireSingleBullet()
     {
         currentWeapon.bulletsInMagazine--;
 
-        GameObject newBullet = ObjectPool.instance.GetBullet();
+
+        GameObject newBullet = ObjectPool.instance.GetObject(bulletPrefab);
 
         newBullet.transform.position = GunPoint().position;
         newBullet.transform.rotation = Quaternion.LookRotation(GunPoint().forward);
@@ -135,10 +141,11 @@ public class PlayerWeaponController : MonoBehaviour
         Bullet bulletScript = newBullet.GetComponent<Bullet>();
         bulletScript.BulletSetup(currentWeapon.gunDistance);
 
-        Vector3 bulletDirection = currentWeapon.ApplySpread(BulletDirection());
+
+        Vector3 bulletsDirection = currentWeapon.ApplySpread(BulletDirection());
 
         rbNewBullet.mass = REFERENCE_BULLET_SPEED / bulletSpeed;
-        rbNewBullet.linearVelocity = bulletDirection * bulletSpeed;
+        rbNewBullet.linearVelocity = bulletsDirection * bulletSpeed;
     }
 
     private void Reload()
@@ -146,6 +153,7 @@ public class PlayerWeaponController : MonoBehaviour
         SetWeaponReady(false);
         player.weaponVisuals.PlayReloadAnimation();
     }
+
 
     public Vector3 BulletDirection()
     {
@@ -160,19 +168,17 @@ public class PlayerWeaponController : MonoBehaviour
     }
 
     public bool HasOnlyOneWeapon() => weaponSlots.Count <= 1;
-
     public Weapon WeaponInSlots(WeaponType weaponType)
     {
-        foreach(Weapon weapon in weaponSlots)
+        foreach (Weapon weapon in weaponSlots)
         {
             if (weapon.weaponType == weaponType)
                 return weapon;
         }
+
         return null;
     }
-
     public Weapon CurrentWeapon() => currentWeapon;
-
     public Transform GunPoint() => player.weaponVisuals.CurrentWeaponModel().gunPoint;
 
     #region Input Events
@@ -201,8 +207,10 @@ public class PlayerWeaponController : MonoBehaviour
         };
 
         controls.Character.ToggleWeaponMode.performed += context => currentWeapon.ToggleBurst();
+
     }
 
-    #endregion
 
+
+    #endregion
 }

@@ -70,34 +70,21 @@ Bölüm 7: Weapon System
 65. Equip weapon
 66. Backup weapon model
 67. Reload speed & Equipment speed
-
-
-
 68. Object pool - Bullet pool
-20 dak
-Oynat
 69. Weapon's fire rate
-9 dak
-Oynat
 70. Weapon ready check
-15 dak
-Oynat
 71. Shoot type : Single and Auto
-7 dak
-Oynat
 72. Bullet's spread
-15 dak
-Oynat
 73. Multi-shot and burst shot
-25 dak
-Oynat
 74. Gun distance
-23 dak
-Oynat
 75. Camera distance
-13 dak
-Oynat
 76. 2+ weapon slots
-22 dak
-Oynat
 77. Clean up & Project
+
+
+Bölüm 8: Performance and Workflow
+
+78. Global object pool
+79. Constructor
+80. Scriptable object
+81. Weapon data & Project
