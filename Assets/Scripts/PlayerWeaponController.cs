@@ -25,6 +25,8 @@ public class PlayerWeaponController : MonoBehaviour
     [SerializeField] private int maxSlots = 2;
     [SerializeField] private List<Weapon> weaponSlots;
 
+    [SerializeField] private GameObject weaponPickupPrefab;
+
 
     private void Start()
     {
@@ -40,6 +42,7 @@ public class PlayerWeaponController : MonoBehaviour
             Shoot();
     }
 
+
     #region Slots managment - Pickup\Equip\Drop\Ready Weapon
 
     private void EquipStartingWeapon()
@@ -47,6 +50,7 @@ public class PlayerWeaponController : MonoBehaviour
         weaponSlots[0] = new Weapon(defaultWeaponData);
         EquipWeapon(0);
     }
+
     private void EquipWeapon(int i)
     {
         if (i >= weaponSlots.Count)
@@ -59,34 +63,54 @@ public class PlayerWeaponController : MonoBehaviour
 
         CameraManager.instance.ChangeCameraDistance(currentWeapon.cameraDistance);
     }
-    public void PickupWeapon(WeaponData newWeaponData)
+
+    public void PickupWeapon(Weapon newWeapon)
     {
-        if (weaponSlots.Count >= maxSlots)
+
+        if (WeaponInSlots(newWeapon.weaponType) != null)
         {
-            Debug.Log("No slots avalible");
+            WeaponInSlots(newWeapon.weaponType).totalReserveAmmo += newWeapon.bulletsInMagazine;
             return;
         }
 
-        Weapon newWeapon = new Weapon(newWeaponData);
+        if (weaponSlots.Count >= maxSlots && newWeapon.weaponType != currentWeapon.weaponType)
+        {
+            int weaponIndex = weaponSlots.IndexOf(currentWeapon);
+
+            player.weaponVisuals.SwitchOffWeaponModels();
+            weaponSlots[weaponIndex] = newWeapon;
+
+            CreateWeaponOnTheGround();
+            EquipWeapon(weaponIndex);
+
+            return;
+        }
 
         weaponSlots.Add(newWeapon);
         player.weaponVisuals.SwitchOnBackupWeaponModel();
     }
+
     private void DropWeapon()
     {
         if (HasOnlyOneWeapon())
             return;
 
+        CreateWeaponOnTheGround();
 
         weaponSlots.Remove(currentWeapon);
         EquipWeapon(0);
+    }
+
+    private void CreateWeaponOnTheGround()
+    {
+        GameObject droppedWeapon = ObjectPool.instance.GetObject(weaponPickupPrefab);
+        droppedWeapon.GetComponent<Pickup_Weapon>()?.SetupPickupWeapon(currentWeapon, transform);
     }
 
     public void SetWeaponReady(bool ready) => weaponReady = ready;
     public bool WeaponReady() => weaponReady;
 
     #endregion
-
 
     private IEnumerator BurstFire()
     {
@@ -121,15 +145,12 @@ public class PlayerWeaponController : MonoBehaviour
             StartCoroutine(BurstFire());
             return;
         }
-
-
         FireSingleBullet();
     }
 
     private void FireSingleBullet()
     {
         currentWeapon.bulletsInMagazine--;
-
 
         GameObject newBullet = ObjectPool.instance.GetObject(bulletPrefab);
 
@@ -140,7 +161,6 @@ public class PlayerWeaponController : MonoBehaviour
 
         Bullet bulletScript = newBullet.GetComponent<Bullet>();
         bulletScript.BulletSetup(currentWeapon.gunDistance);
-
 
         Vector3 bulletsDirection = currentWeapon.ApplySpread(BulletDirection());
 
@@ -153,7 +173,6 @@ public class PlayerWeaponController : MonoBehaviour
         SetWeaponReady(false);
         player.weaponVisuals.PlayReloadAnimation();
     }
-
 
     public Vector3 BulletDirection()
     {
@@ -207,10 +226,7 @@ public class PlayerWeaponController : MonoBehaviour
         };
 
         controls.Character.ToggleWeaponMode.performed += context => currentWeapon.ToggleBurst();
-
     }
-
-
 
     #endregion
 }

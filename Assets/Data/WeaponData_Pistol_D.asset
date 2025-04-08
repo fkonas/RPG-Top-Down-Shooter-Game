@@ -15,7 +15,7 @@ MonoBehaviour:
   weaponName: Heaven 567
   bulletsInMagazine: 20
   magazineCapacity: 20
-  totalReserveAmmo: 999
+  totalReserveAmmo: 100
   shootType: 0
   bulletsPerShot: 1
   fireRate: 4

@@ -9,6 +9,7 @@ public class Player : MonoBehaviour
     public PlayerMovement movement { get; private set; }
     public PlayerWeaponController weapon { get; private set; }
     public PlayerWeaponVisuals weaponVisuals { get; private set; }
+    public PlayerInteraction Interaction { get; private set; }
 
     private void Awake()
     {

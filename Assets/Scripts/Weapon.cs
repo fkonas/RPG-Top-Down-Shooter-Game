@@ -28,6 +28,7 @@ public class Weapon
     public float fireRate = 1; // bullets per second
     private float lastShootTime;
     #endregion
+
     #region Burst mode  variables
     private bool burstAvalible;
     public bool burstActive;
@@ -43,7 +44,6 @@ public class Weapon
     public int totalReserveAmmo;
 
     #region Weapon generic info variables
-
     public float reloadSpeed { get; private set; } // how fast charcater reloads weapon    
     public float equipmentSpeed { get; private set; } // how fast character equips weapon
     public float gunDistance { get; private set; }
@@ -64,6 +64,8 @@ public class Weapon
 
     #endregion
 
+    public WeaponData weaponData { get; private set; } // serves as default weapon data
+
     public Weapon(WeaponData weaponData)
     {
 
@@ -77,27 +79,23 @@ public class Weapon
         bulletsPerShot = weaponData.bulletsPerShot;
         shootType = weaponData.shootType;
 
-
         burstAvalible = weaponData.burstAvalible;
         burstActive = weaponData.burstActive;
         burstBulletsPerShot = weaponData.burstBulletsPerShot;
         burstFireRate = weaponData.burstFireRate;
         burstFireDelay = weaponData.burstFireDelay;
 
-
         baseSpread = weaponData.baseSpread;
         maximumSpread = weaponData.maxSpread;
         spreadIncreaseRate = weaponData.spreadIncreaseRate;
-
 
         reloadSpeed = weaponData.reloadSpeed;
         equipmentSpeed = weaponData.equipmentSpeed;
         gunDistance = weaponData.gunDistance;
         cameraDistance = weaponData.cameraDistance;
 
-
-
         defaultFireRate = fireRate;
+        this.weaponData = weaponData;
     }
 
     #region Spread methods
@@ -119,8 +117,6 @@ public class Weapon
             currentSpread = baseSpread;
         else
             IncreaseSpread();
-
-
 
         lastSpreadUpdateTime = Time.time;
     }
@@ -163,7 +159,6 @@ public class Weapon
             fireRate = defaultFireRate;
         }
     }
-
 
     #endregion
 

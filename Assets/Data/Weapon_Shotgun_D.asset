@@ -15,7 +15,7 @@ MonoBehaviour:
   weaponName: Shootgun G7
   bulletsInMagazine: 30
   magazineCapacity: 30
-  totalReserveAmmo: 999
+  totalReserveAmmo: 100
   shootType: 0
   bulletsPerShot: 5
   fireRate: 2
