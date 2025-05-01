@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 1709163126698690409}
   - component: {fileID: 8284515523421331946}
   - component: {fileID: 8900309995889453535}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: slate_light_grey
   m_TagString: Untagged
   m_Icon: {fileID: 0}

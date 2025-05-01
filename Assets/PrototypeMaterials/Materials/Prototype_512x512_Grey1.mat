@@ -13,6 +13,7 @@ Material:
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords:
   - _NORMALMAP
+  - _SMOOTHNESS_TEXTURE_ALBEDO_CHANNEL_A
   - _SPECULARHIGHLIGHTS_OFF
   m_InvalidKeywords:
   - _DISABLE_SSR_TRANSPARENT
@@ -43,7 +44,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _BaseMap:
-        m_Texture: {fileID: 2800000, guid: dd29f35641da38647a1eeb1028211f1a, type: 3}
+        m_Texture: {fileID: 2800000, guid: 7aa1baa24ba4d304493cd09d4f2f6462, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _BentNormalMap:
@@ -103,7 +104,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MainTex:
-        m_Texture: {fileID: 2800000, guid: dd29f35641da38647a1eeb1028211f1a, type: 3}
+        m_Texture: {fileID: 2800000, guid: 7aa1baa24ba4d304493cd09d4f2f6462, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MaskMap:
@@ -278,11 +279,11 @@ Material:
     - _RefractionModel: 0
     - _SSRefractionProjectionModel: 0
     - _Shininess: 0
-    - _Smoothness: 0.5
+    - _Smoothness: 0
     - _SmoothnessRemapMax: 1
     - _SmoothnessRemapMin: 0
     - _SmoothnessSource: 1
-    - _SmoothnessTextureChannel: 0
+    - _SmoothnessTextureChannel: 1
     - _SpecSource: 0
     - _SpecularAAScreenSpaceVariance: 0.1
     - _SpecularAAThreshold: 0.2

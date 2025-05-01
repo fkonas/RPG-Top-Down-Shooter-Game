@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 6194803326598172711}
   - component: {fileID: 7673324242160660505}
   - component: {fileID: 6830129265282337892}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: truck_trampoline
   m_TagString: Untagged
   m_Icon: {fileID: 0}

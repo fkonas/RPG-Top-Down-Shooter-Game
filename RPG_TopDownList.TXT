@@ -88,3 +88,40 @@ Bölüm 8: Performance and Workflow
 79. Constructor
 80. Scriptable object
 81. Weapon data & Project
+
+Bölüm 9: Interaction System
+
+82. Closest interactble
+83. Interaction and inheritance
+84. Weapon pickup interaction
+85. Drop current weapon as pickup item
+86. Ammo box pickup
+87. Clean up & Project
+
+Bölüm 10: Enemy Melee
+
+88. Brief enemy design
+89. AI Navigation Setup
+90. State Machine Setup
+91. Idle State
+92. Move State
+93. Visuals and Animations
+94. Manual rotation and smooth transition
+95. Recovery state
+96. Root transform position
+97. Chase State
+98. Attack State
+99. Attack Set
+100. Next attack random
+101. Multiple slash attacks
+102. Dead state & Ragdoll
+103. Simple health system
+104. Enemy ability - Shield
+105. Enemy ability - Dodge
+106. Enemy ability - Axe throw
+
+
+107. Enemy's Axe
+32 dak
+Oynat
+108. Clean up, Refactoring & Project
