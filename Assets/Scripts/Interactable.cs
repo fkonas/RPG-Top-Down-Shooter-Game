@@ -5,6 +5,7 @@ public class Interactable : MonoBehaviour
     protected PlayerWeaponController weaponController;
     protected MeshRenderer mesh;
 
+
     [SerializeField] private Material highlightMaterial;
     protected Material defaultMaterial;
 
@@ -30,14 +31,11 @@ public class Interactable : MonoBehaviour
     public void HighlightActive(bool active)
     {
         if (active)
-        {
-            mesh.material = highlightMaterial; 
-        }
+            mesh.material = highlightMaterial;
         else
-        {
             mesh.material = defaultMaterial;
-        }
     }
+
 
     protected virtual void OnTriggerEnter(Collider other)
     {
@@ -49,18 +47,18 @@ public class Interactable : MonoBehaviour
         if (playerInteraction == null)
             return;
 
-        playerInteraction.GetInteractables().Add(this);
-        playerInteraction.UpdateClosestInteractable();
+        playerInteraction.GetInteracbles().Add(this);
+        playerInteraction.UpdateClosestInteractble();
     }
 
     protected virtual void OnTriggerExit(Collider other)
     {
         PlayerInteraction playerInteraction = other.GetComponent<PlayerInteraction>();
 
-        if (playerInteraction == null) 
+        if (playerInteraction == null)
             return;
 
-        playerInteraction.GetInteractables().Remove(this);
-        playerInteraction.UpdateClosestInteractable();
+        playerInteraction.GetInteracbles().Remove(this);
+        playerInteraction.UpdateClosestInteractble();
     }
 }

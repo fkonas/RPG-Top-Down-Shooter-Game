@@ -1,5 +1,4 @@
-using System.Collections;
-using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 
 public class Bullet : MonoBehaviour
@@ -11,13 +10,13 @@ public class Bullet : MonoBehaviour
     private MeshRenderer meshRenderer;
     private TrailRenderer trailRenderer;
 
+
     [SerializeField] private GameObject bulletImpactFX;
 
-   
+
     private Vector3 startPosition;
     private float flyDistance;
     private bool bulletDisabled;
-
 
     private void Awake()
     {
@@ -37,17 +36,14 @@ public class Bullet : MonoBehaviour
 
         trailRenderer.time = .25f;
         startPosition = transform.position;
-        this.flyDistance = flyDistance + .5f;
+        this.flyDistance = flyDistance + .5f; // magic number .5f is a length of tip of the laser ( Check method UpdateAimVisuals() on PlayerAim script) ;
     }
 
     private void Update()
     {
         FadeTrailIfNeeded();
-
         DisableBulletIfNeeded();
-
         ReturnToPoolIfNeeded();
-
     }
 
     private void ReturnToPoolIfNeeded()
@@ -55,7 +51,6 @@ public class Bullet : MonoBehaviour
         if (trailRenderer.time < 0)
             ReturnBulletToPool();
     }
-
     private void DisableBulletIfNeeded()
     {
         if (Vector3.Distance(startPosition, transform.position) > flyDistance && !bulletDisabled)
@@ -65,11 +60,10 @@ public class Bullet : MonoBehaviour
             bulletDisabled = true;
         }
     }
-
     private void FadeTrailIfNeeded()
     {
         if (Vector3.Distance(startPosition, transform.position) > flyDistance - 1.5f)
-            trailRenderer.time -= 2 * Time.deltaTime;
+            trailRenderer.time -= 2 * Time.deltaTime; // magic number 2 is choosen trhou testing
     }
 
     private void OnCollisionEnter(Collision collision)
@@ -78,7 +72,7 @@ public class Bullet : MonoBehaviour
         ReturnBulletToPool();
 
         Enemy enemy = collision.gameObject.GetComponentInParent<Enemy>();
-        EnemyShield shield = collision.gameObject.GetComponent<EnemyShield>();
+        Enemy_Shield shield = collision.gameObject.GetComponent<Enemy_Shield>();
 
         if (shield != null)
         {
@@ -88,13 +82,14 @@ public class Bullet : MonoBehaviour
 
         if (enemy != null)
         {
-            Vector3 force = rb.angularVelocity.normalized * impactForce;
+            Vector3 force = rb.linearVelocity.normalized * impactForce;
             Rigidbody hitRigidbody = collision.collider.attachedRigidbody;
 
             enemy.GetHit();
             enemy.DeathImpact(force, collision.contacts[0].point, hitRigidbody);
         }
     }
+
 
     private void ReturnBulletToPool() => ObjectPool.instance.ReturnObject(gameObject);
 

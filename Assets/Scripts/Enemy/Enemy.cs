@@ -5,7 +5,7 @@ using System.Collections;
 public class Enemy : MonoBehaviour
 {
     [SerializeField] protected int healthPoints = 20;
-
+    
     [Header("Idle data")]
     public float idleTime;
     public float aggresionRange;
@@ -21,15 +21,13 @@ public class Enemy : MonoBehaviour
     private Vector3[] patrolPointsPosition;
     private int currentPatrolIndex;
 
-    public bool inBattleMode {  get; private set; }
+    public bool inBattleMode { get; private set; }
 
     public Transform player {  get; private set; }
-
-    public Animator anim {  get; private set; }
-
+    public Animator anim { get; private set; }
     public NavMeshAgent agent { get; private set; }
+    public EnemyStateMachine stateMachine { get; private set; }
 
-    public EnemyStateMachine stateMachine {  get; private set; }
 
     protected virtual void Awake()
     {
@@ -40,15 +38,16 @@ public class Enemy : MonoBehaviour
         player = GameObject.Find("Player").GetComponent<Transform>();
     }
 
-
     protected virtual void Start()
     {
         InitializePatrolPoints();
     }
 
+  
+
     protected virtual void Update()
     {
-
+        
     }
 
     protected bool ShouldEnterBattleMode()
@@ -75,11 +74,10 @@ public class Enemy : MonoBehaviour
         healthPoints--;
     }
 
-    public virtual void DeathImpact(Vector3 force, Vector3 hitPoint, Rigidbody rb)
+    public virtual void DeathImpact( Vector3 force,Vector3 hitPoint,Rigidbody rb)
     {
-        StartCoroutine(DeathImpactCourutine(force, hitPoint, rb));
+        StartCoroutine(DeathImpactCourutine(force,hitPoint,rb));
     }
-
     private IEnumerator DeathImpactCourutine(Vector3 force, Vector3 hitPoint, Rigidbody rb)
     {
         yield return new WaitForSeconds(.1f);
@@ -98,27 +96,26 @@ public class Enemy : MonoBehaviour
         transform.rotation = Quaternion.Euler(currentEulerAngels.x, yRotation, currentEulerAngels.z);
     }
 
+    
+
     #region Animation events
-
     public void ActivateManualMovement(bool manualMovement) => this.manualMovement = manualMovement;
-
     public bool ManualMovementActive() => manualMovement;
 
     public void ActivateManualRotation(bool manualRotation) => this.manualRotation = manualRotation;
-
     public bool ManualRotationActive() => manualRotation;
-
     public void AnimationTrigger() => stateMachine.currentState.AnimationTrigger();
 
-    #endregion
 
-    #region Patrol Logic
 
     public virtual void AbilityTrigger()
     {
         stateMachine.currentState.AbilityTrigger();
     }
 
+    #endregion
+
+    #region Patrol logic
     public Vector3 GetPatrolDestination()
     {
         Vector3 destination = patrolPointsPosition[currentPatrolIndex];
@@ -130,7 +127,6 @@ public class Enemy : MonoBehaviour
 
         return destination;
     }
-
     private void InitializePatrolPoints()
     {
         patrolPointsPosition = new Vector3[patrolPoints.Length];
@@ -144,10 +140,9 @@ public class Enemy : MonoBehaviour
 
     #endregion
 
+
     protected virtual void OnDrawGizmos()
     {
         Gizmos.DrawWireSphere(transform.position, aggresionRange);
     }
-
-
 }

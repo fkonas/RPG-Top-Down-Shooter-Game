@@ -119,9 +119,19 @@ Bölüm 10: Enemy Melee
 104. Enemy ability - Shield
 105. Enemy ability - Dodge
 106. Enemy ability - Axe throw
-
-
 107. Enemy's Axe
-32 dak
-Oynat
 108. Clean up, Refactoring & Project
+
+
+Bölüm 11: Enemy Variants
+
+
+109. Updating enemy's FBX Model and Ragdoll
+110. Updating avatar and animations
+111. Setup random look
+112. Setup random weapon
+113. Setup random corruption
+114. Animator override
+115. Enemy weapon trail effect
+116. Attack data update
+117. Clean up & Project
